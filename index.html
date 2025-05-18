@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Despertador Medicinal - Login</title>
+  <style>
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: Arial, sans-serif;
+    background: url('Despertador.jpeg') no-repeat center center fixed;
+    background-size: cover;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    position: relative;
+  }
+
+  body::before {
+    content: "";
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(255, 255, 255, 0.5);
+    z-index: -1;
+  }
+
+  .container {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 30px;
+    max-width: 400px;
+    width: 100%;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    text-align: center;
+    transition: all 0.3s ease;
+  }
+
+  h1 {
+    color: #2e4a62;
+    margin-bottom: 20px;
+    font-size: 24px;
+  }
+
+  label {
+    display: block;
+    text-align: left;
+    margin-bottom: 5px;
+    color: #333;
+    font-weight: bold;
+    font-size: 14px;
+  }
+
+  input[type="time"],
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+  }
+
+  button {
+    width: 100%;
+    padding: 12px;
+    background-color: #2e4a62;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 10px;
+  }
+
+  button:hover {
+    background-color: #1f3446;
+  }
+
+  .toggle-link {
+    margin-top: 10px;
+    font-size: 14px;
+    cursor: pointer;
+    color: #2e4a62;
+    text-decoration: underline;
+  }
+
+  footer {
+    margin-top: 20px;
+    font-style: italic;
+    color: #2e4a62;
+    font-size: 14px;
+    text-align: center;
+  }
+
+  /* Responsividade aprimorada */
+  @media (max-width: 768px) {
+    .container {
+      padding: 25px;
+      max-width: 90%;
+    }
+
+    h1 {
+      font-size: 22px;
+    }
+
+    input, select, button {
+      font-size: 15px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .container {
+      padding: 20px;
+      max-width: 95%;
+    }
+
+    h1 {
+      font-size: 20px;
+    }
+
+    label {
+      font-size: 13px;
+    }
+
+    input, select, button {
+      font-size: 14px;
+      padding: 10px;
+    }
+
+    .toggle-link {
+      font-size: 13px;
+    }
+
+    footer {
+      font-size: 12px;
+    }
+  }
+
+  #despertador, #footer {
+    display: none;
+  }
+  </style>
+</head>
+<body>
+
+  <!-- Login -->
+  <div class="container" id="login">
+    <h1>Login</h1>
+    <label for="emailLogin">E-mail:</label>
+    <input type="email" id="emailLogin" placeholder="Digite seu e-mail" />
+
+    <label for="senhaLogin">Senha:</label>
+    <input type="password" id="senhaLogin" placeholder="Digite sua senha" />
+
+    <button onclick="fazerLogin()">Entrar</button>
+    <p class="toggle-link" onclick="mostrarRegistro()">Não tem conta? Cadastre-se</p>
+    <p class="toggle-link" onclick="esqueceuSenha()">Esqueceu a senha?</p>
+  </div>
+
+  <!-- Registro -->
+  <div class="container" id="registro" style="display: none;">
+    <h1>Cadastro</h1>
+    <label for="emailCadastro">E-mail:</label>
+    <input type="email" id="emailCadastro" placeholder="Digite seu e-mail" />
+
+    <label for="senhaCadastro">Senha:</label>
+    <input type="password" id="senhaCadastro" placeholder="Crie uma senha" />
+
+    <button onclick="fazerCadastro()">Cadastrar</button>
+    <p class="toggle-link" onclick="mostrarLogin()">Já tem conta? Fazer login</p>
+  </div>
+
+  <!-- Redefinir Senha -->
+<div class="container" id="redefinirSenha" style="display: none;">
+  <h1>Redefinir Senha</h1>
+  
+  <label for="emailRedefinir">E-mail cadastrado:</label>
+  <input type="email" id="emailRedefinir" placeholder="Digite seu e-mail" />
+
+  <label for="novaSenha">Nova senha:</label>
+  <input type="password" id="novaSenha" placeholder="Digite a nova senha" />
+
+  <button onclick="redefinirSenha()">Salvar nova senha</button>
+  <p class="toggle-link" onclick="mostrarLogin()">Voltar ao login</p>
+</div>
+
+
+  <!-- Despertador -->
+  <div class="container" id="despertador" style="display:none;">
+  <h1>Despertador Medicinal</h1>
+
+  <label for="horario">Escolha o horário:</label>
+  <input type="time" id="horario">
+
+  <label for="remedio">Nome do Remédio:</label>
+  <input type="text" id="remedio">
+
+  <label for="som">Escolha o Som:</label>
+  <select id="som">
+    <option value="demon">Som 1 - Demon Slayer</option>
+    <option value="dragon">Som 2 - Dragon Ball</option>
+    <option value="top">Som 3 - Top Música</option>
+  </select>
+
+  <button onclick="iniciarAlarme()">Iniciar Alarme</button>
+
+  <footer id="footer">
+    <p>Lembre-se de tomar seu remédio no horário certo!</p>
+  </footer>
+</div>
+
+  <footer id="footer">
+    <p>Lembre-se de tomar seu remédio no horário certo!</p>
+  </footer>
+
+  <!-- Áudios -->
+  <audio id="audio-demon" src="DemonSlayer.mp3" preload="auto"></audio>
+  <audio id="audio-dragon" src="DragonBall.mp3" preload="auto"></audio>
+  <audio id="audio-top" src="Top.mp3" preload="auto"></audio>
+
+  <script>
+
+function esqueceuSenha() {
+  document.getElementById("login").style.display = "none";
+  document.getElementById("registro").style.display = "none";
+  document.getElementById("redefinirSenha").style.display = "block";
+}
+
+function redefinirSenha() {
+  const email = document.getElementById("emailRedefinir").value.trim();
+  const novaSenha = document.getElementById("novaSenha").value.trim();
+
+  if (!email || !novaSenha) {
+    alert("Preencha todos os campos.");
+    return;
+  }
+
+  const usuarios = JSON.parse(localStorage.getItem("usuarios")) || {};
+
+  if (!usuarios[email]) {
+    alert("E-mail não encontrado.");
+    return;
+  }
+
+  usuarios[email] = novaSenha;
+  localStorage.setItem("usuarios", JSON.stringify(usuarios));
+  alert("Senha redefinida com sucesso!");
+
+  mostrarLogin();
+}
+
+    // Alternar entre login e registro
+    function mostrarRegistro() {
+      document.getElementById("login").style.display = "none";
+      document.getElementById("registro").style.display = "block";
+    }
+
+    function mostrarLogin() {
+  document.getElementById("registro").style.display = "none";
+  document.getElementById("redefinirSenha").style.display = "none"; // <- Adicionado para fechar a aba de redefinir senha
+  document.getElementById("login").style.display = "block";
+}
+
+    // Cadastro
+    function fazerCadastro() {
+  const email = document.getElementById("emailCadastro").value.trim();
+  const senha = document.getElementById("senhaCadastro").value.trim();
+
+  if (!email || !senha) {
+    alert("Preencha todos os campos.");
+    return;
+  }
+
+  // Verificação de formato de e-mail com regex
+  const emailValido = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  if (!emailValido) {
+    alert("Por favor, insira um e-mail válido.");
+    return;
+  }
+
+  const usuarios = JSON.parse(localStorage.getItem("usuarios")) || {};
+  if (usuarios[email]) {
+    alert("Esse e-mail já está cadastrado.");
+    return;
+  }
+
+  usuarios[email] = senha;
+  localStorage.setItem("usuarios", JSON.stringify(usuarios));
+  alert("Usuário cadastrado com sucesso!");
+
+  mostrarLogin();
+}
+
+
+    // Login
+    function fazerLogin() {
+      const email = document.getElementById("emailLogin").value;
+      const senha = document.getElementById("senhaLogin").value;
+
+      const usuarios = JSON.parse(localStorage.getItem("usuarios")) || {};
+
+      if (usuarios[email] && usuarios[email] === senha) {
+        document.getElementById("login").style.display = "none";
+        document.getElementById("despertador").style.display = "block";
+        document.getElementById("footer").style.display = "block";
+      } else {
+        alert("E-mail ou senha incorretos.");
+      }
+    }
+
+    // Alarme
+    function iniciarAlarme() {
+      const horario = document.getElementById("horario").value;
+      const remedio = document.getElementById("remedio").value;
+      const somSelecionado = document.getElementById("som").value;
+
+      if (!horario || !remedio) {
+        alert("Por favor, preencha todos os campos.");
+        return;
+      }
+
+      const agora = new Date();
+      const [horaAlvo, minutoAlvo] = horario.split(":").map(Number);
+
+      const horaAlarme = new Date();
+      horaAlarme.setHours(horaAlvo, minutoAlvo, 0, 0);
+
+      if (horaAlarme <= agora) {
+        horaAlarme.setDate(horaAlarme.getDate() + 1);
+      }
+
+      const tempoRestante = horaAlarme - agora;
+
+      alert(`Alarme configurado para ${horario}. Remédio: ${remedio}`);
+
+      setTimeout(() => {
+        alert(`É hora de tomar o remédio: ${remedio}`);
+        const audio = document.getElementById(`audio-${somSelecionado}`);
+        audio.volume = 1;
+        audio.play().catch(err => {
+          console.error("Erro ao tocar áudio:", err);
+          alert("Não foi possível tocar o áudio. Verifique se o navegador permitiu.");
+        });
+      }, tempoRestante);
+    }
+  </script>
+
+</body>
+</html>
